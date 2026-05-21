@@ -1,0 +1,27 @@
+---
+agent:
+  name: "MyAwesomeAgent"
+  description: "Short description of what this service does"
+  url: "https://github.com/myorg/myproj"
+  branch: "main"
+  docs: "https://myproj.example/docs"
+  dashboard: "https://dash.myproj.example"
+  status: "https://status.myproj.example"
+
+  # Linked agents / services this repo depends on or exposes
+  integrations:
+    - name: "payments-service"
+      url: "https://github.com/myorg/payments-service"
+      relationship: "downstream"
+    - name: "auth-service"
+      url: "https://github.com/myorg/auth-service"
+      relationship: "upstream"
+
+  # MCP servers available in this project's agent sessions
+  mcp:
+    gitlab:
+      command: "npx"
+      args: ["-y", "@modelcontextprotocol/server-gitlab"]
+      env:
+        GITLAB_TOKEN: "${GITLAB_TOKEN}"
+        GITLAB_URL: "${GITLAB_URL}"

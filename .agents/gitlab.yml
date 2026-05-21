@@ -1,0 +1,22 @@
+---
+gitlab:
+  project_id: "myorg/myproj"
+  default_branch: "main"
+  protected_branches: ["main", "develop"]
+
+  workflow:
+    strategy: "gitflow"
+    squash_on_merge: true
+    delete_branch_on_merge: true
+    require_review_count: 1
+
+  labels:
+    - "bug"
+    - "feature"
+    - "chore"
+    - "breaking-change"
+    - "needs-review"
+
+  pipelines:
+    config: ".gitlab-ci.yml"
+    skip_phrase: "[skip ci]"

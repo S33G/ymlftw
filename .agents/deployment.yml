@@ -1,0 +1,31 @@
+---
+deployment:
+  environments:
+    production:
+      url: "https://myproj.example"
+      branch: "main"
+      auto_deploy: false
+      approval_required: true
+    staging:
+      url: "https://staging.myproj.example"
+      branch: "develop"
+      auto_deploy: true
+      approval_required: false
+    preview:
+      url: "https://preview-{MR_IID}.myproj.example"
+      branch: "merge-request/*"
+      auto_deploy: true
+      approval_required: false
+
+  pipeline:
+    stages: ["lint", "test", "build", "deploy"]
+    test_command: "pnpm test"
+    build_command: "pnpm build"
+    docker_file: "Dockerfile"
+
+  secrets:
+    manager: "gitlab-ci-variables"
+    required:
+      - "DATABASE_URL"
+      - "REDIS_URL"
+      - "JWT_SECRET"

@@ -1,0 +1,28 @@
+---
+stack:
+  runtime: "node@22"
+  language: "typescript@5.4"
+  package_manager: "pnpm@9"
+
+  frameworks:
+    - "express@4"
+    - "prisma@5"
+
+  databases:
+    primary: "postgresql@16"
+    cache: "redis@7"
+
+  infrastructure:
+    cloud: "aws"
+    container: "docker"
+    orchestration: "kubernetes"
+    iac: "terraform"
+
+  testing:
+    unit: "vitest"
+    e2e: "playwright"
+    coverage_threshold: 80
+
+  ci:
+    platform: "gitlab-ci"
+    registry: "registry.gitlab.com/myorg/myproj"

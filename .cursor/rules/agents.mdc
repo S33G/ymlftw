@@ -1,0 +1,16 @@
+---
+alwaysApply: true
+---
+
+On session start: read and deep-merge all `.agents/*.yml` files as structured project context.
+
+Key files:
+- `.agents/agents.yml` — service identity and MCP config
+- `.agents/stack.yml` — languages, frameworks, infra
+- `.agents/conventions.yml` — coding rules and patterns
+- `.agents/team.yml` — team contacts
+- `.agents/deployment.yml` — environments and CI/CD
+
+Follow `conventions.patterns.preferred`. Avoid `conventions.patterns.avoid`.
+Use `stack` keys for all technology references — do not assume versions.
+Follow `conventions.git` for branches and commits.

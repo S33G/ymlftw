@@ -1,0 +1,32 @@
+---
+conventions:
+  style:
+    formatter: "prettier"
+    linter: "eslint"
+    config: ".eslintrc.yml"
+
+  patterns:
+    preferred:
+      - "Repository pattern for all data access"
+      - "Zod for all runtime validation"
+      - "Result types over throwing errors in service layer"
+      - "Named exports only — no default exports"
+      - "Barrel files (index.ts) per module"
+
+    avoid:
+      - "any type — use unknown and narrow"
+      - "Direct Prisma calls outside repository layer"
+      - "Secrets in code or comments"
+      - "God objects / classes with >5 responsibilities"
+
+  naming:
+    files: "kebab-case"
+    types_interfaces: "PascalCase"
+    functions_variables: "camelCase"
+    env_vars: "SCREAMING_SNAKE_CASE"
+    database_tables: "snake_case"
+
+  git:
+    branch_prefix: "feat/ fix/ chore/ docs/"
+    commit_style: "conventional-commits"
+    pr_template: ".gitlab/merge_request_templates/default.md"

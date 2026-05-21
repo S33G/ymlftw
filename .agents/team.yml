@@ -1,0 +1,18 @@
+---
+team:
+  name: "MyProj Team"
+  members:
+    - name: "Charlie Brown"
+      role: "dev"
+      contact: "dev@charlie.brown"
+      timezone: "UTC"
+      slack: "charlie-brown"
+    - name: "Bob Smith"
+      role: "DevOps"
+      contact: "bob@myproj.com"
+      timezone: "EST"
+      slack: null
+  contact:
+    email: "support@myproj.com"
+    slack: "myproj-support"
+    timezone: "UTC"
