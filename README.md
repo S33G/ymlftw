@@ -27,6 +27,81 @@ Markdown is great for *human documentation*. YAML is better for *machine consump
 
 ---
 
+## FAQ
+
+### Does YAML help if the agent does not know which key to read?
+
+Not by itself. If an agent has no goal, it may still scan the full context. YAML helps once the task is known because the agent can jump to stable paths instead of interpreting prose.
+
+For example:
+
+| Task | Useful YAML path |
+|---|---|
+| Run tests | `deployment.pipeline.test_command` |
+| Follow repo conventions | `conventions.patterns.preferred` |
+| Check the runtime | `stack.runtime` |
+| Find the team contact | `team.contact` |
+
+The value is not that YAML guesses intent. The value is that intent can map to a predictable key.
+
+### Why does validation matter if the source could be Markdown?
+
+Markdown can be reviewed by humans, but it is hard to validate automatically. YAML can be checked by schema, CI, or simple tooling before an agent consumes it.
+
+Validation catches things like missing required fields, wrong types, invalid enum values, broken commands, and inconsistent structure across repos. That matters when the context drives agent behavior, CI setup, dashboards, or repo-wide automation.
+
+### Is YAML actually cheaper in tokens?
+
+Yes, especially when the same facts are repeated across many repos. The savings come from both fewer words and less interpretation.
+
+Markdown:
+
+```md
+## Runtime and Tooling
+
+This project uses Node.js version 22. The source code is written in TypeScript version 5.4. Package management is done with pnpm version 9.
+
+For testing, use Vitest for unit tests and Playwright for end-to-end tests. The expected coverage threshold is 80 percent.
+```
+
+YAML:
+
+```yaml
+stack:
+  runtime: node@22
+  language: typescript@5.4
+  package_manager: pnpm@9
+  testing:
+    unit: vitest
+    e2e: playwright
+    coverage_threshold: 80
+```
+
+The YAML version removes filler words and gives each fact a stable path. Agents do not need to decide whether "testing is done with Vitest" means current, preferred, required, or historical. `stack.testing.unit: vitest` is direct.
+
+### How does YAML expose missing data?
+
+YAML does not know what is missing unless there is an expected shape. The advantage is that omissions become machine-detectable when you use a schema or shared convention.
+
+It also lets authors distinguish between unknown and intentionally empty values:
+
+```yaml
+team:
+  members:
+    - name: Bob Smith
+      slack: null
+```
+
+Here, `slack: null` says the Slack handle is intentionally absent or unavailable. If the `slack` key is missing entirely, tooling can treat that as unknown, incomplete, or not modeled yet.
+
+### What will make people adopt this?
+
+Adoption will come from solving a repeated agent failure, not from the file format alone. Good first targets are problems teams already feel: agents using the wrong test command, ignoring repo conventions, missing deploy rules, or guessing service ownership.
+
+YAML is the mechanism. The pitch is stronger when it shows a concrete before-and-after where structured context prevents a real mistake.
+
+---
+
 ## How it works
 
 ```
